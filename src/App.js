@@ -4,7 +4,7 @@ import './assets/scss/theme.scss';
 
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
 import Chat from './pages/Chat/Chat';
 
 class App extends React.Component {
@@ -13,17 +13,30 @@ class App extends React.Component {
     this.state = {
       auth: false,
     };
+
+    this.handleAuthenticated = this.handleAuthenticated.bind(this);
+  }
+
+  handleAuthenticated(auth) {
+    console.log('aaaaaaaa', auth);
+    this.setState({ auth });
   }
 
   render() {
     const { auth } = this.state;
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/chat" render={() => (auth ? <Chat /> : <Redirect to="/" />)} />
-        </Switch>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => <Login handleAuthenticated={this.handleAuthenticated} />}
+            />
+            <Route path="/chat" render={() => (auth ? <Chat /> : <Redirect to="/" />)} />
+          </Switch>
+        </BrowserRouter>
+      </div>
     );
   }
 }
