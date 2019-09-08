@@ -1,42 +1,36 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable class-methods-use-this */
 import React from 'react';
 
 import './assets/scss/theme.scss';
 
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+
+import { FirebaseAuthProvider, FirebaseAuthConsumer } from '@react-firebase/auth';
+import config from './config';
 
 import Login from './pages/Login/Login';
 import Chat from './pages/Chat/Chat';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      auth: false,
-    };
-
-    this.handleAuthenticated = this.handleAuthenticated.bind(this);
-  }
-
-  handleAuthenticated(auth) {
-    console.log('aaaaaaaa', auth);
-    this.setState({ auth });
+  handleClickLogin() {
+    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(googleAuthProvider);
   }
 
   render() {
-    const { auth } = this.state;
     return (
-      <div>
-        <BrowserRouter>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => <Login handleAuthenticated={this.handleAuthenticated} />}
-            />
-            <Route path="/chat" render={() => (auth ? <Chat /> : <Redirect to="/" />)} />
-          </Switch>
-        </BrowserRouter>
-      </div>
+      <FirebaseAuthProvider {...config} firebase={firebase}>
+        <FirebaseAuthConsumer>
+          {({ isSignedIn, user }) => {
+            if (isSignedIn) {
+              return <Chat firebase={firebase} user={user} />;
+            }
+            return <Login handleClickLogin={this.handleClickLogin} />;
+          }}
+        </FirebaseAuthConsumer>
+      </FirebaseAuthProvider>
     );
   }
 }

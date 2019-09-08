@@ -1,0 +1,35 @@
+@import "../../assets/scss/variables";
+
+.LoginView {
+  align-items: center;
+  display: flex;
+  height: 100%;
+
+  .-logo {
+    align-items: baseline;
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    margin-bottom: 30px;
+    text-align: center;
+
+    > :first-child {
+      color: $c-primary;
+      font-size: 45px;
+      font-weight: bold;
+    }
+  }
+
+  .-wrapperLogin {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  .-btnlogin {
+    background: transparent;
+    border: transparent;
+    padding: 0;
+  }
+}

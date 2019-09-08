@@ -1,0 +1,29 @@
+@import "../../assets/scss/variables";
+
+.Message {
+  background: white;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  padding: 10px;
+  width: auto;
+
+  .-from {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+
+  .-date {
+    font-size: 9px;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+
+  .-message {
+    font-size: 12px;
+    margin-top: 6px;
+    word-wrap: break-word;
+  }
+}

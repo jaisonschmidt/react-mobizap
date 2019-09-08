@@ -1,0 +1,10 @@
+@import "../../assets/scss/variables";
+
+.Header {
+  background-color: $c-primary;
+  border-bottom: 1px solid #efefef;
+
+  .-logo {
+    color: white;
+  }
+}

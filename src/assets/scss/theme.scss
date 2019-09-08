@@ -2,5 +2,38 @@
 @import "mixins";
 @import "reset";
 
+html,
+body,
+body > div {
+  height: 100%;
+}
+
 body {
+  background: $c-sec;
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 480px;
+  width: 100%;
+}
+
+.container-fluid {
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &.ws {
+    padding: 15px;
+  }
+}
+
+.btn {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 10px;
 }
