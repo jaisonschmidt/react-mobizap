@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@react-firebase/auth": "^0.2.9",
+    "@react-firebase/firestore": "^0.5.4",
     "firebase": "^6.6.0",
     "node-sass": "^4.12.0",
     "react": "^16.9.0",

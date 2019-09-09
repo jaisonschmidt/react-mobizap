@@ -2,11 +2,12 @@ import React from 'react';
 
 import './MessageForm.scss';
 
-const MessageFormView = () => {
+const MessageFormView = props => {
+  const { handleSubmitForm } = props;
   return (
-    <form className="MessageForm container-fluid ws">
-      <input className="-messageinput" type="text" />
-      <button type="button" className="btn -btnsend">
+    <form className="MessageForm container-fluid ws" onSubmit={handleSubmitForm}>
+      <input className="-messageinput" type="text" name="txtMessage" required />
+      <button type="submit" className="btn -btnsend">
         Enviar
       </button>
     </form>
