@@ -5,8 +5,8 @@ import HeaderView from './HeaderView';
 import './Header.scss';
 
 const Header = props => {
-  const { firebase } = props;
-  return <HeaderView firebase={firebase} />;
+  const { firebase, signOut } = props;
+  return <HeaderView firebase={firebase} signOut={signOut} />;
 };
 
 export default Header;

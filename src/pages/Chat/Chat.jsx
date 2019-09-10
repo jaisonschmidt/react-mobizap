@@ -9,13 +9,13 @@ import MessageForm from '../../features/MessageForm/MessageForm';
 import MessageMoc from '../../features/MessageList/MessageListMoc';
 
 const Chat = props => {
-  const { firebase, user } = props;
+  const { firebaseApp, user, signOut } = props;
+  const db = firebaseApp.firestore();
   return (
     <div className="Chat">
-      {console.log(user)}
-      <Header firebase={firebase} />
-      <MessageList messages={MessageMoc} />
-      <MessageForm firebase={firebase} user={user} />
+      <Header signOut={signOut} />
+      <MessageList messages={MessageMoc} db={db} />
+      <MessageForm firebaseApp={firebaseApp} db={db} user={user} />
     </div>
   );
 };

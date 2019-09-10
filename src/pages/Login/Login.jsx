@@ -6,8 +6,8 @@ import React from 'react';
 import LoginView from './LoginView';
 
 const Login = props => {
-  const { handleClickLogin } = props;
-  return <LoginView handleClickLogin={handleClickLogin} />;
+  const { signInWithGoogle } = props;
+  return <LoginView signInWithGoogle={signInWithGoogle} />;
 };
 
 export default Login;

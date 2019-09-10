@@ -1,10 +1,11 @@
 import React from 'react';
 
 import './Login.scss';
+
 import Logo from '../../assets/img/btn_sign_google.png';
 
 function LoginView(props) {
-  const { handleClickLogin } = props;
+  const { signInWithGoogle } = props;
   return (
     <div className="container LoginView">
       <div className="-wrapperLogin">
@@ -15,7 +16,7 @@ function LoginView(props) {
           </h1>
         </div>
         <div>
-          <button type="button" className="-btnlogin" onClick={handleClickLogin}>
+          <button type="button" className="-btnlogin" onClick={signInWithGoogle}>
             <img src={Logo} alt="button google sign" />
           </button>
         </div>

@@ -2,25 +2,35 @@
 /* eslint-disable class-methods-use-this */
 import React from 'react';
 
-import MessageFormView from './MessageFormView';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
-import firebase from '../../firebase';
+import MessageFormView from './MessageFormView';
 
 class MessageForm extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
 
   handleSubmitForm(e) {
     e.preventDefault(e);
-    console.log(e.target.txtMessage.value);
-    e.target.txtMessage.value = '';
-    const db = this.props.firebase.firestore();
-    db.collection('users').add({
-      user: 'last test',
+
+    const message = e.target.txtMessage.value;
+    const { db, user } = this.props;
+    const { displayName, email, uid } = user;
+
+    db.collection('chat').add({
+      user: {
+        displayName,
+        email,
+        uid,
+      },
+      message,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
+
+    e.target.txtMessage.value = '';
   }
 
   render() {
