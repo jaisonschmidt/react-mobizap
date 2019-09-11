@@ -53,13 +53,25 @@ class MessageList extends React.Component {
     this.firestoreListener();
   }
 
+  /* curiosidade: https://mathiasbynens.github.io/rel-noopener/ */
+
   render() {
     const { messages } = this.state;
     return (
       <div className="MessageList">
         {messages.map(message => {
-          console.log(message);
-          return <Message message={message} key={message.id} />;
+          return message.data.isImage ? (
+            <a
+              href={message.data.isImage}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={message.id}
+            >
+              <img src={message.data.isImage} style={{ width: '100%', padding: '10px' }} alt="" />
+            </a>
+          ) : (
+            <Message message={message} key={message.id} />
+          );
         })}
       </div>
     );

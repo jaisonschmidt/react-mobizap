@@ -4,6 +4,7 @@ import React from 'react';
 
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 import MessageFormView from './MessageFormView';
 
@@ -11,6 +12,10 @@ class MessageForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.handleUploadClick = this.handleUploadClick.bind(this);
+    this.setRef = ref => {
+      this.file = ref;
+    };
   }
 
   handleSubmitForm(e) {
@@ -26,6 +31,7 @@ class MessageForm extends React.Component {
         email,
         uid,
       },
+      isImage: false,
       message,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
@@ -33,8 +39,48 @@ class MessageForm extends React.Component {
     e.target.txtMessage.value = '';
   }
 
+  /* TODO - gerar nome unico */
+  handleUploadChange() {
+    const { firebaseApp, db, user } = this.props;
+    const { displayName, email, uid } = user;
+    const file = this.file.files[0];
+    const storageRef = firebaseApp.storage().ref();
+    const mainImage = storageRef.child(file.name);
+
+    mainImage.put(file).then(() => {
+      mainImage.getDownloadURL().then(url => {
+        db.collection('chat').add({
+          user: {
+            displayName,
+            email,
+            uid,
+          },
+          isImage: url,
+          message: '',
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+      });
+    });
+  }
+
   render() {
-    return <MessageFormView handleSubmitForm={this.handleSubmitForm} />;
+    return (
+      <>
+        <div className="upload-btn-wrapper">
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            onChange={this.handleUploadChange}
+            ref={this.setRef}
+            capture
+          />
+          <button type="button" className="btn-upload">
+            Foto
+          </button>
+        </div>
+        <MessageFormView handleSubmitForm={this.handleSubmitForm} />
+      </>
+    );
   }
 }
 
