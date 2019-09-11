@@ -12,7 +12,7 @@ class MessageForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
-    this.handleUploadClick = this.handleUploadClick.bind(this);
+    this.handleUploadChange = this.handleUploadChange.bind(this);
     this.setRef = ref => {
       this.file = ref;
     };
