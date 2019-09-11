@@ -6,16 +6,16 @@ import './MessageList.scss';
 
 class MessageList extends React.Component {
   constructor(props) {
+    const { db } = props;
+
     super(props);
 
     this.state = {
       messages: [],
     };
-  }
 
-  componentDidMount() {
-    const { db } = this.props;
-    db.collection('chat')
+    this.firestoreListener = db
+      .collection('chat')
       .orderBy('timestamp', 'asc')
       .onSnapshot(docs => {
         const messages = docs.docs.map(doc => {
@@ -47,6 +47,10 @@ class MessageList extends React.Component {
         console.log(messages);
       });
       */
+  }
+
+  componentWillUnmount() {
+    this.firestoreListener();
   }
 
   render() {
